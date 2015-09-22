@@ -1,0 +1,20 @@
+{
+  "name": "flack-node",
+  "version": "1.0.0",
+  "description": "Music Chat App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NYDrewReynolds/flack-node.git"
+  },
+  "author": "Drew Reynolds & Max Tedford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NYDrewReynolds/flack-node/issues"
+  },
+  "homepage": "https://github.com/NYDrewReynolds/flack-node#readme"
+}
