@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/NYDrewReynolds/flack-node/issues"
   },
-  "homepage": "https://github.com/NYDrewReynolds/flack-node#readme"
+  "homepage": "https://github.com/NYDrewReynolds/flack-node#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "socket.io": "^1.3.7"
+  }
 }
