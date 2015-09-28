@@ -1,27 +1,24 @@
-const http     = require('http');
-const express  = require('express');
-const socketIo = require('socket.io');
-const app      = express();
-const redis    = require('redis');
-const client   = redis.createClient();
-
-app.use(express.static('public'));
-
-var server = http.createServer(app);
-var port   = process.env.PORT || 8080;
+const express = require('express');
+const app     = express();
+const http    = require('http').Server(app);
+const io      = require('socket.io')(http);
+const path    = require('path');
+const redis   = require('redis');
+const client  = redis.createClient(6379, "127.0.0.1");
 
 client.subscribe("rock");
 
-client.on("message", function(channel, message) {
-  console.log(channel, message)
+client.on("message", function (channel, message) {
+  console.log(channel, message);
+  io.sockets.emit("message", message);
 });
 
-server.listen(port, function () {
-  console.log('Listening on port ' + port + '.');
+app.use(express.static('public'));
+
+http.listen(process.env.PORT || 8080, function(){
+  console.log('Your server is up and running on Port 8080. Good job!');
 });
 
-const io = socketIo(server);
-
-io.on("connection", function() {
-  console.log("A user has connected");
+io.on('connection', function (socket) {
+  console.log('Someone has connected.');
 });
