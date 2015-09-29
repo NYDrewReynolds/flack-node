@@ -6,11 +6,11 @@ const path    = require('path');
 const redis   = require('redis');
 const client  = redis.createClient(6379, "127.0.0.1");
 
-client.subscribe("rock");
+client.psubscribe("flack:*");
 
-client.on("message", function (channel, message) {
+client.on("pmessage", function (pattern, channel, message) {
   console.log(channel, message);
-  io.sockets.emit("message", message);
+  io.sockets.in(channel).emit("message", message);
 });
 
 app.use(express.static('public'));
@@ -20,5 +20,10 @@ http.listen(process.env.PORT || 8080, function(){
 });
 
 io.on('connection', function (socket) {
-  console.log('Someone has connected.');
+  console.log("Someone has connected.");
+  
+  socket.on("subscribe", function(room) {
+    console.log("subscribed to flack:" + room);
+    socket.join("flack:" + room);
+  });
 });
